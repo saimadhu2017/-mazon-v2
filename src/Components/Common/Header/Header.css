@@ -1,0 +1,34 @@
+/* cs_header */
+.cs_header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+/* cs_img_logo */
+.cs_img_logo{
+    height: 60px;
+    width: 60px;
+}
+
+/* cs_nav_items */
+.cs_nav_items {
+    list-style: none;
+    margin-left: auto;
+}
+
+.cs_nav_items a{
+    text-decoration: none;
+}
+
+/* cs_list_item */
+.cs_list_item {
+    display: inline;
+    padding: 20px;
+    font-weight: bold; 
+    color: #8d8686;
+}
+
+.cs_list_item:hover{
+    color: #ffffff;
+}

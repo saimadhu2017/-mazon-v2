@@ -1,9 +1,10 @@
 import './App.css';
+import Header from '../Common/Header/Header'
 
 function App() {
   return (
-    <div className="App">
-      Welcome to the MERN Stack Project
+    <div>
+      <Header />
     </div>
   );
 }
