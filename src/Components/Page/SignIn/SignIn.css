@@ -1,0 +1,17 @@
+.cs_SignIn {
+    border: 1px solid red;
+    width: 50vw;
+    padding: 100px;
+}
+
+.cs_heading {
+    text-align: center;
+}
+
+.cs_submit {
+    margin-top: 10px;
+    text-align: center;
+}
+.cs_label{
+    padding-top: 10px;
+}
