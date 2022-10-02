@@ -1,0 +1,29 @@
+.cs_describeSignInSignUp {
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    width: 50vw;
+}
+
+.cs_square {
+    width: 275px;
+    height: 275px;
+    background: #001CAD;
+    align-self: center;
+    border-radius: 50px;
+    transform: rotate(-45deg);
+    display: flex;
+    justify-content: center;
+}
+
+.cs_text_inside_square {
+    align-self: center;
+    background: #001CAD;
+    transform: rotate(45deg);
+}
+
+.Typewriter,
+.Typewriter__wrapper,
+.Typewriter__cursor {
+    background-color: #001CAD;
+}
