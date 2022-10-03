@@ -1,17 +1,27 @@
 .cs_SignIn {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 50vw;
-    padding: 100px;
+    padding-top: 10px;
 }
 
 .cs_heading {
     text-align: center;
 }
 
-.cs_submit {
-    margin-top: 10px;
-    text-align: center;
+.cs_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.cs_label{
+
+.cs_input {
+    width: 50%;
+}
+
+.cs_label {
     padding-top: 10px;
+}
+
+.cs_submit {
+    margin-top: 20px;
 }

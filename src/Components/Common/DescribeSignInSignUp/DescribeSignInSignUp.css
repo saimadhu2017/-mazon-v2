@@ -1,13 +1,13 @@
 .cs_describeSignInSignUp {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     display: flex;
     justify-content: center;
     width: 50vw;
 }
 
 .cs_square {
-    width: 275px;
-    height: 275px;
+    width: 200px;
+    height: 200px;
     background: #001CAD;
     align-self: center;
     border-radius: 50px;
