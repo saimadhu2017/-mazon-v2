@@ -1,19 +1,16 @@
 import './App.css';
-import Header from '../Common/Header/Header'
-import DescribeSignInSignUp from '../Common/DescribeSignInSignUp/DescribeSignInSignUp';
-import SignIn from '../Page/SignIn/SignIn';
-import SignUp from '../Page/SignUp/SignUp';
+import Header from '../Common/Header/Header';
+import SignInDescribe from '../Assoc/SignInDescribe/SignInDescribe';
+import SignUpDescribe from '../Assoc/SignUpDescribe/SignUpDescribe';
+import React from 'react';
 
 function App() {
   return (
-    <div>
+    <React.Fragment>
       <Header />
-      <div className="main">
-        <DescribeSignInSignUp pageType='Sign Up' />
-        {/* <SignIn /> */}
-        <SignUp />
-      </div>
-    </div>
+      <SignInDescribe />
+      <SignUpDescribe />
+    </React.Fragment>
   );
 }
 
