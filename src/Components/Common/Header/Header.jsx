@@ -11,13 +11,13 @@ function Header() {
       </Link>
       <ul className='cs_nav_items'>
         <Link to={'/'}>
-          <li className='cs_list_item'><i className="fa-solid fa-house"></i> Home</li>
+          <li className='cs_list_item'><i className='fa-solid fa-house'></i> Home</li>
         </Link>
         <Link to={'/signup'}>
-          <li className='cs_list_item'><i className="fa-solid fa-user-plus"></i> Sign Up</li>
+          <li className='cs_list_item'><i className='fa-solid fa-user-plus'></i> Sign Up</li>
         </Link>
         <Link to={'/signin'}>
-          <li className='cs_list_item'><i className="fa-solid fa-right-to-bracket"></i> Login</li>
+          <li className='cs_list_item'><i className='fa-solid fa-right-to-bracket'></i> Login</li>
         </Link>
         {/* Adding other links */}
       </ul>

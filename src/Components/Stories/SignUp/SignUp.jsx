@@ -17,11 +17,11 @@ function SignUp() {
                     <label className='form-label cs_label'>Email</label>
                     <input className='form-control' type='text' />
                 </div>
-                <div className="cs_input">
+                <div className='cs_input'>
                     <label className='form-label cs_label'>Password</label>
                     <input className='form-control' type='password' />
                 </div>
-                <div className="cs_input">
+                <div className='cs_input'>
                     <label className='form-label cs_label'>Confirm Password</label>
                     <input className='form-control' type='password' />
                 </div>
