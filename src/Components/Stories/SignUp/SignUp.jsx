@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { useState } from 'react';
+import { signUpUser } from '../../../Api/auth';
 import './SignUp.css';
 
 const SignUp = () => {
@@ -111,9 +113,17 @@ const SignUp = () => {
             })
         }
     }
-    const signUp = (e) => {
+    const signUp = async (e) => {
         e.preventDefault()
-        console.log(inpState);
+        const userPostData = {
+            last_name: last_name.value,
+            first_name: first_name.value,
+            mail: mail.value,
+            phone: phone.value,
+            password: password.value
+        }
+        const data = await signUpUser(axios, userPostData)
+        console.log(data);
     }
     const isDisabled = () => {
         let c = 0; let c1 = 0;
