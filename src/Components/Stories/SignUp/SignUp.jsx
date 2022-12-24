@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { signUpUser } from '../../../Api/auth';
+import { signUpUserApi } from '../../../Apis/auth';
 import './SignUp.css';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
     const [inpState, setState] = useState({
@@ -18,7 +19,7 @@ const SignUp = () => {
 
     const firstNameChange = (e) => {
         const name = e.target.value;
-        const stringPattern = /^[a-zA-Z]+$/;
+        const stringPattern = /^[a-zA-Z ]+$/;
 
         if (stringPattern.test(name)) {
             setState({
@@ -117,12 +118,12 @@ const SignUp = () => {
         e.preventDefault()
         const userPostData = {
             last_name: last_name.value,
-            first_name: first_name.value,
+            first_name: first_name.value.trim(),
             mail: mail.value,
             phone: phone.value,
             password: password.value
         }
-        const data = await signUpUser(axios, userPostData)
+        const data = await signUpUserApi(axios, userPostData, toast)
         console.log(data);
     }
     const isDisabled = () => {
