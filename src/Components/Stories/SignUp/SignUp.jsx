@@ -13,10 +13,11 @@ const SignUp = () => {
         phone: inputStore('', ''),
         password: inputStore('', ''),
         re_password: inputStore('', ''),
-        role: inputStore(0, '')
+        role: inputStore(0, ''),
+        signUpClicked: false
     });
-    
-    const navigate=useNavigate();
+
+    const navigate = useNavigate();
 
     const { first_name, last_name, mail, phone, password, re_password } = inpState;
 
@@ -118,6 +119,10 @@ const SignUp = () => {
         }
     }
     const signUp = async (e) => {
+        setState({
+            ...inpState,
+            signUpClicked: true
+        })
         e.preventDefault()
         const userPostData = {
             last_name: last_name.value,
@@ -146,6 +151,10 @@ const SignUp = () => {
             },
             error: {
                 render(err) {
+                    setState({
+                        ...inpState,
+                        signUpClicked: false
+                    })
                     const res = err?.data;
                     return (res?.response?.data?.err || res?.message)
                 },
@@ -155,11 +164,16 @@ const SignUp = () => {
         })
     }
     const isDisabled = () => {
+        if (inpState.signUpClicked) {
+            return true
+        }
         let c = 0; let c1 = 0;
         for (const userInfo in inpState) {
-            if (userInfo !== 'role') { c1 = c1 + 1 }
-            if (inpState[userInfo].errMessage === '' && inpState[userInfo].value) {
-                c = c + 1
+            if (userInfo !== 'signUpClicked') {
+                if (userInfo !== 'role') { c1 = c1 + 1 }
+                if (inpState[userInfo].errMessage === '' && inpState[userInfo].value) {
+                    c = c + 1
+                }
             }
         }
         if (inpState.role.value) { c1 = c1 + 1 }
