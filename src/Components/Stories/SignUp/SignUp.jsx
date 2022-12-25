@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { signUpUserApi } from '../../../Apis/auth';
+import { postSignUpUserApi } from '../../../Apis/auth';
 import './SignUp.css';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
     const [inpState, setState] = useState({
@@ -14,6 +15,8 @@ const SignUp = () => {
         re_password: inputStore('', ''),
         role: inputStore(0, '')
     });
+    
+    const navigate=useNavigate();
 
     const { first_name, last_name, mail, phone, password, re_password } = inpState;
 
@@ -123,8 +126,33 @@ const SignUp = () => {
             phone: phone.value,
             password: password.value
         }
-        const data = await signUpUserApi(axios, userPostData, toast)
-        console.log(data);
+        const apiData = postSignUpUserApi(axios, userPostData);
+        toast.promise(apiData, {
+            pending: {
+                render() {
+                    return ('Please wait...')
+                },
+                position: toast.POSITION.TOP_CENTER,
+                className: 'toast_notification_cs'
+            },
+            success: {
+                render() {
+                    // console.log(res?.data?.data?.data);
+                    navigate('/signin')
+                    return ('Successfully created your account 🙌')
+                },
+                position: toast.POSITION.TOP_CENTER,
+                className: 'toast_notification_cs'
+            },
+            error: {
+                render(err) {
+                    const res = err?.data;
+                    return (res?.response?.data?.err || res?.message)
+                },
+                position: toast.POSITION.TOP_CENTER,
+                className: 'toast_notification_cs'
+            }
+        })
     }
     const isDisabled = () => {
         let c = 0; let c1 = 0;
