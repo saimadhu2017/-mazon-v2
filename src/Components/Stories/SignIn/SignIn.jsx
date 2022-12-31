@@ -4,10 +4,14 @@ import { toast } from 'react-toastify';
 import { getSignInUserApi } from '../../../Apis/auth';
 import { inputStore } from '../SignUp/SignUp';
 import './SignIn.css';
+import Cookies from 'js-cookie'
+import ls from 'local-storage'
+import { connect } from 'react-redux'
+import { signIn } from '../../../redux/auth/authActions';
 
 class SignIn extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             mail: inputStore('', ''),
             password: inputStore('', ''),
@@ -62,10 +66,13 @@ class SignIn extends React.Component {
         await this.setState({
             signInClicked: true
         })
-        const updateStateForSignInClicked = async () => {
+        const updateStateForSignInClickedFail = async () => {
             await this.setState({
                 signInClicked: false
             })
+        }
+        const updateStateForSignInClickedSucess = async () => {
+            await this.props.signIn({ isUserSigned: true })
         }
         const userSendData = {
             mail: this.state.mail.value,
@@ -82,7 +89,12 @@ class SignIn extends React.Component {
             },
             success: {
                 render(res) {
-                    console.log(res?.data?.data?.data);
+                    const responseData = res?.data?.data?.data
+                    ls('userData', { id: responseData.id })
+                    Cookies.set('usertoken', responseData?.token, {
+                        expires: 1 / 1440
+                    })
+                    updateStateForSignInClickedSucess()
                     return ('Successfully SignedIn🙌')
                 },
                 position: toast.POSITION.TOP_CENTER,
@@ -90,7 +102,7 @@ class SignIn extends React.Component {
             },
             error: {
                 render(err) {
-                    updateStateForSignInClicked()
+                    updateStateForSignInClickedFail()
                     const res = err?.data;
                     return (res?.response?.data?.err || res?.message)
                 },
@@ -130,4 +142,17 @@ class SignIn extends React.Component {
         }
     }
 }
-export default SignIn;
+
+const mapStateToProps = (state) => {
+    return ({
+        isUserSigned: state.signInReducer.isUserSigned
+    })
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return ({
+        signIn: (payLoad) => { dispatch(signIn(payLoad)) }
+    })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

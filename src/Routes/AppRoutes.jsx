@@ -6,7 +6,7 @@ function AppRoutes() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<AppContainer />}>
+                <Route element={<AppContainer />}>
                     {
                         rootRoutes.map((route, i) => {
                             return <Route {...route} key={i} />
