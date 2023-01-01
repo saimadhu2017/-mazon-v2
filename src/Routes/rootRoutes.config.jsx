@@ -1,6 +1,6 @@
 import SignInDescribe from '../Components/Assoc/SignInDescribe/SignInDescribe';
 import SignUpDescribe from '../Components/Assoc/SignUpDescribe/SignUpDescribe';
-import ProtuctedComponent from '../Components/Stories/Test/Test';
+import ProtuctedComponent from '../Components/Stories/ProtuctedComponent/ProtuctedComponent';
 
 const rootRoutes = [
     {
