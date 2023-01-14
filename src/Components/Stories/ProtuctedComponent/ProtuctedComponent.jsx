@@ -11,30 +11,24 @@ import { useRef } from "react"
 
 const ProtuctedComponent = (props) => {
     const { Component } = props;
-    const userId = Number(ls('userData')?.id);//string data type
-    const token = Cookies.get('usertoken')//string data type
+    const userId = Number(ls('userData')?.id)
+    const token = Cookies.get('usertoken')
     const [tokenUserIDAuth, setTokenUserIDAuth] = useState(false);
     const navigate = useNavigate();
     const isInitialMount = useRef(true);
     useEffect(() => {
-        if (!props.isUserSigned && userId && token) {
+        if (!props.isUserSigned && userId && token && isInitialMount.current) {
+            isInitialMount.current = false;
             isUserSignedIn(axios, { id: userId, usertoken: token }).then(
                 () => {
                     setTokenUserIDAuth(true)
                 }
             ).catch(
-                (err) => {
-                    const res = err?.data;
-                    const message = res?.response?.data?.err || res?.message
-                    if (isInitialMount.current) {
-                        isInitialMount.current = false;
-                    }
-                    else {
-                        toast.error(message, {
-                            position: toast.POSITION.TOP_CENTER,
-                            className: 'toast_notification_cs'
-                        });
-                    }
+                () => {
+                    toast.error('Session Expired Sign In again..', {
+                        position: toast.POSITION.TOP_CENTER,
+                        className: 'toast_notification_cs'
+                    });
                     navigate('/signin')
                     setTokenUserIDAuth(false)
                     ls.clear();
@@ -44,7 +38,6 @@ const ProtuctedComponent = (props) => {
         }
     })
     if (props.isUserSigned) {
-        console.log('first');
         return (
             <Component />
         )

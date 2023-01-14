@@ -19,7 +19,9 @@ exports.isUserSignedIn = (axios, userData) => {
     const { id, usertoken } = userData;
     return (
         axios.get(`${this.commonValues.backendUrl}/is-signed-in/${id}`, {
-            headers: { Authorization: this.commonValues.bearerString + usertoken }
+            headers: {
+                Authorization: this.commonValues.bearerString + usertoken
+            }
         })
     )
 }
