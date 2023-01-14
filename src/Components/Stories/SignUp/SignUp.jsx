@@ -118,12 +118,12 @@ const SignUp = () => {
             })
         }
     }
-    const signUp = async (e) => {
+    const signUp = (e) => {
+        e.preventDefault()
         setState({
             ...inpState,
             signUpClicked: true
         })
-        e.preventDefault()
         const userPostData = {
             last_name: last_name.value,
             first_name: first_name.value.trim(),
@@ -225,7 +225,7 @@ const SignUp = () => {
     );
 }
 
-const inputStore = (value, errMessage) => {
+export const inputStore = (value, errMessage) => {
     return {
         value,
         errMessage
