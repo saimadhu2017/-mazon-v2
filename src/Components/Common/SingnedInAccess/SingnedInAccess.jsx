@@ -10,7 +10,7 @@ import { toast } from "react-toastify"
 import { useRef } from "react"
 import { signIn } from "../../../redux/auth/authActions"
 
-const ProtuctedComponent = (props) => {
+const SingnedInAccess = (props) => {
     const { Component } = props;
     const userId = Number(ls('userData')?.id)
     const token = Cookies.get('usertoken')
@@ -46,8 +46,11 @@ const ProtuctedComponent = (props) => {
                 className: 'toast_notification_cs'
             });
         }
+        if(props.isUserSigned && (!token || !userId)){
+            props.signIn({ isUserSigned: false })
+        }
     })
-    if (props.isUserSigned) {
+    if (props.isUserSigned && userId && token) {
         return (
             <Component />
         )
@@ -78,4 +81,4 @@ const mapDispatchToProps = (dispatch) => {
     })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProtuctedComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(SingnedInAccess);

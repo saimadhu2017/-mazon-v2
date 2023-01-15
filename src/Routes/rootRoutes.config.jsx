@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import SignInDescribe from '../Components/Assoc/SignInDescribe/SignInDescribe';
 import SignUpDescribe from '../Components/Assoc/SignUpDescribe/SignUpDescribe';
-import ProtuctedComponent from '../Components/Stories/ProtuctedComponent/ProtuctedComponent';
+import SingnedInNoAccess from '../Components/Common/SingnedInNoAccess/SingnedInNoAccess';
+import SingnedInAccess from '../Components/Common/SingnedInAccess/SingnedInAccess';
 
 const TestFunction = () => {
     const [value, setValue] = useState(0)
@@ -18,19 +20,19 @@ const TestFunction = () => {
 const rootRoutes = [
     {
         path: 'signin',
-        element: <SignInDescribe />
+        element: <SingnedInNoAccess Component={SignInDescribe} />
     },
     {
         path: 'signup',
-        element: <SignUpDescribe />
+        element: <SingnedInNoAccess Component={SignUpDescribe} />
     },
     {
         path: 'test',
-        element: <ProtuctedComponent Component={TestFunction} />
+        element: <SingnedInAccess Component={TestFunction} />
     },
     {
         path: '*',
-        element: <h1>404</h1>
+        element: <Navigate to={'/test'}/>
     }
 ]
 
