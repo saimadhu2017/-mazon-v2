@@ -1,9 +1,14 @@
 import './Header.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signIn } from '../../../redux/auth/authActions';
+import { toast } from 'react-toastify';
+import ls from 'local-storage'
+import Cookies from 'js-cookie'
 
 const appLogoPath = require('../../../Assets/images/app_logo.png');
 
-function Header() {
+function Header(props) {
   return (
     <div className='cs_header'>
       <Link to={'/'}>
@@ -13,16 +18,40 @@ function Header() {
         <Link to={'/'}>
           <li className='cs_list_item'><i className='fa-solid fa-house'></i> Home</li>
         </Link>
-        <Link to={'/signup'}>
+        <Link to={'/signup'} style={{ display: !props.isUserSigned ? undefined : 'none' }}>
           <li className='cs_list_item'><i className='fa-solid fa-user-plus'></i> Sign Up</li>
         </Link>
-        <Link to={'/signin'}>
+        <Link to={'/signin'} style={{ display: !props.isUserSigned ? undefined : 'none' }}>
           <li className='cs_list_item'><i className='fa-solid fa-right-to-bracket'></i> Login</li>
         </Link>
-        {/* Adding other links */}
+        <Link to={'/signin'} style={{ display: props.isUserSigned ? undefined : 'none' }} onClick={() => { logOut(props) }}>
+          <li className='cs_list_item'><i className='fa-solid fa-power-off'></i> Logout</li>
+        </Link>
       </ul>
     </div>
   );
 }
 
-export default Header;
+const logOut = (props) => {
+  toast.success('Successfully logged out', {
+    position: toast.POSITION.TOP_CENTER,
+    className: 'toast_notification_cs'
+  });
+  props.signIn({ isUserSigned: false })
+  ls.clear();
+  Cookies.remove('usertoken')
+}
+
+const mapStateToProps = (state) => {
+  return ({
+    isUserSigned: state.signInReducer.isUserSigned
+  })
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    signIn: (payLoad) => { dispatch(signIn(payLoad)) }
+  })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

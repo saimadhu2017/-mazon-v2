@@ -8,6 +8,7 @@ import React, { useEffect } from "react"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import { useRef } from "react"
+import { signIn } from "../../../redux/auth/authActions"
 
 const ProtuctedComponent = (props) => {
     const { Component } = props;
@@ -16,16 +17,18 @@ const ProtuctedComponent = (props) => {
     const [tokenUserIDAuth, setTokenUserIDAuth] = useState(false);
     const navigate = useNavigate();
     const isInitialMount = useRef(true);
+    const isInitialMountNoUserIdNoToken = useRef(true);
     useEffect(() => {
         if (!props.isUserSigned && userId && token && isInitialMount.current) {
             isInitialMount.current = false;
             isUserSignedIn(axios, { id: userId, usertoken: token }).then(
                 () => {
                     setTokenUserIDAuth(true)
+                    props.signIn({ isUserSigned: true })
                 }
             ).catch(
                 () => {
-                    toast.error('Session Expired Sign In again..', {
+                    toast.error('Session expired please sign in..', {
                         position: toast.POSITION.TOP_CENTER,
                         className: 'toast_notification_cs'
                     });
@@ -35,6 +38,13 @@ const ProtuctedComponent = (props) => {
                     Cookies.remove('usertoken')
                 }
             )
+        }
+        if(!props.isUserSigned && (!token || !userId) && isInitialMountNoUserIdNoToken.current){
+            isInitialMountNoUserIdNoToken.current=false;
+            toast.error('Please sign in...', {
+                position: toast.POSITION.TOP_CENTER,
+                className: 'toast_notification_cs'
+            });
         }
     })
     if (props.isUserSigned) {
@@ -62,4 +72,10 @@ const mapStateToProps = (state) => {
     })
 }
 
-export default connect(mapStateToProps)(ProtuctedComponent);
+const mapDispatchToProps = (dispatch) => {
+    return ({
+        signIn: (payLoad) => { dispatch(signIn(payLoad)) }
+    })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProtuctedComponent);
